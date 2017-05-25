@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 00:33:02 by nlowe             #+#    #+#             */
-/*   Updated: 2017/02/19 00:38:07 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/05/25 21:57:13 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ typedef struct		s_seg
 	double			d_x;
 	double			d_y;
 }					t_sgmt;
+
+int		fdf_error(int exit, int arnaud);
 
 #endif
