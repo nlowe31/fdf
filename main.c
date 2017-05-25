@@ -6,21 +6,19 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 20:53:14 by nlowe             #+#    #+#             */
-/*   Updated: 2017/05/25 18:53:04 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/05/25 23:26:19 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		fdf_error(int exit, int arnaud)
+void	fdf_error(char *message)
 {
-	if (arnaud)
-		ft_dprintf(2, "fdf: %s\n", strerror(arnaud));
+	if (message)
+		ft_dprintf(2, "FDF: %s\n", message));
 	else
-		perror("fdf");
-	if (exit)
-		exit(0);
-	return (1);
+		perror("FDF");
+	exit(0);
 }
 
 int		main(void)
