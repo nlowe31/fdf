@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 18:42:32 by nlowe             #+#    #+#             */
-/*   Updated: 2017/05/29 15:15:40 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/05/29 17:32:17 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,17 @@ void		check_map(char *str, int *x_max, int *y_max)
 	}
 }
 
+void		get_color(t_coord **map, char **str, int *x, int *y)
+{
+	if (**str == '0')
+		(*str)++;
+	if (**str == 'x')
+		(*str)++;
+	map[*y][*x].color = ft_atoi_base(*str, 16);
+	while (ft_isdigit_base(**str, 16))
+		(*str)++;
+}
+
 void		get_coord(t_coord **map, char **str, int *x, int *y)
 {
 	while (ft_isspace(**str))
@@ -54,11 +65,16 @@ void		get_coord(t_coord **map, char **str, int *x, int *y)
 		(map[*y][*x]).z = ft_atoi(*str);
 	(map[*y][*x]).x = *x;
 	(map[*y][*x]).y = *y;
-	(map[*x][*y].color = 0x00ffffff);
+	
 	while (ft_isdigit(**str) || **str == '-')
 		(*str)++;
 	if (**str == ',')
+	{
 		(*str)++;
+		get_color(map, str, x, y);
+	}
+	else
+		(map[*x][*y].color = 0xffffff);
 	(*x)++;
 }
 
