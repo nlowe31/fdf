@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 18:42:32 by nlowe             #+#    #+#             */
-/*   Updated: 2017/05/26 16:50:37 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/05/29 15:15:40 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void		check_map(char *str, int *x_max, int *y_max)
 		if (ft_isdigit(str[pos]) || (str[pos] == '-' && ft_isdigit(str[pos + 1])))
 			x++;
 		while (ft_isdigit(str[pos]) || (str[pos] == '-' && ft_isdigit(str[pos + 1])))
-			x++;
+			pos++;
 		if (str[pos] == ',')
 			pos++;
 		if (!ft_isdigit(str[pos]) && !ft_isspace(str[pos]))
@@ -54,6 +54,7 @@ void		get_coord(t_coord **map, char **str, int *x, int *y)
 		(map[*y][*x]).z = ft_atoi(*str);
 	(map[*y][*x]).x = *x;
 	(map[*y][*x]).y = *y;
+	(map[*x][*y].color = 0x00ffffff);
 	while (ft_isdigit(**str) || **str == '-')
 		(*str)++;
 	if (**str == ',')
