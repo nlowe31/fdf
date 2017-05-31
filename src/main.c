@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 20:53:14 by nlowe             #+#    #+#             */
-/*   Updated: 2017/05/31 19:27:31 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/05/31 23:07:54 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,27 @@ void	put_pixel(t_env *env, int x, int y, int color)
 		env->data[pos + i] = (color >> (8 * i)) & 0xff;
 		i++;
 	}
+}
+
+t_seg	parallel(t_env *env, int x, int y, int direction)
+{
+	t_seg	ret;
+
+	if (direction == 1)
+	{
+		ret.x_0 = env->map[y][x].x * env->x_scale + env->x_move + env->map[y][x].z * env->z_scale;
+		ret.y_0 = env->map[y][x].y * env->y_scale + env->y_move + env->map[y][x].z * env->z_scale;
+		ret.x_1 = env->map[y + 1][x].x * env->x_scale + env->x_move + env->map[y + 1][x].z * env->z_scale;
+		ret.y_1 = env->map[y + 1][x].y * env->y_scale + env->y_move + env->map[y + 1][x].z * env->z_scale;
+	}
+	else
+	{
+		ret.x_0 = env->map[y][x].x * env->x_scale + env->x_move + env->map[y][x].z * env->z_scale;
+		ret.y_0 = env->map[y][x].y * env->y_scale + env->y_move + env->map[y][x].z * env->z_scale;
+		ret.x_1 = env->map[y][x + 1].x * env->x_scale + env->x_move + env->map[y][x + 1].z * env->z_scale;
+		ret.y_1 = env->map[y][x + 1].y * env->y_scale + env->y_move + env->map[y][x + 1].z * env->z_scale;
+	}
+	return (ret);
 }
 
 t_seg	isometric(t_env *env, int x, int y, int direction)
@@ -109,12 +130,12 @@ void	add_to_image(t_env *env, int x, int y)
 
 	if (x + 1 < env->x_max)
 	{
-		seg = isometric(env, x, y, 0);
+		seg = (env->projection)(env, x, y, 0);
 		put_segment(env, seg, 0xffffff);
 	}
 	if (y + 1 < env->y_max)
 	{
-		seg = isometric(env, x, y, 1);
+		seg = (env->projection)(env, x, y, 1);
 		put_segment(env, seg, 0xffffff);
 	}
 }
@@ -141,28 +162,37 @@ void	refresh(t_env *env, void (*f)(t_env *, int, int))
 	mlx_put_image_to_window(env->core, env->win, env->img, 0, 0);
 }
 
+void	killswitch(t_env *env)
+{
+	mlx_destroy_image(env->core, env->img);
+	mlx_destroy_window(env->core, env->win);
+	free(env);
+	exit(1);
+}
+
 int		keyhook(int keycode, void *param)
 {
+	t_env	*env;
+	
+	env = (t_env *)param;
 	if (keycode == 53)
-	{
-		mlx_destroy_image(((t_env *)param)->core, ((t_env *)param)->img);
-		mlx_destroy_window(((t_env *)param)->core, ((t_env *)param)->win);
-		free(param);
-		exit(1);
-	}
+		killswitch(env);
 	if (keycode == 24 || keycode == 27)
 	{
-		((t_env *)param)->x_scale += (keycode == 24 ? 1 : -1);
-		((t_env *)param)->y_scale += (keycode == 24 ? 1 : -1);
+		env->x_scale += (keycode == 24 ? 1 : -1);
+		env->y_scale += (keycode == 24 ? 1 : -1);
+		env->z_scale += (keycode == 24 ? 1 : -1);
 	}
 	if (keycode == 123 || keycode == 124)
-		((t_env *)param)->x_move += (keycode == 123 ? -10 : 10);
+		env->x_move += (keycode == 123 ? 10 : -10);
 	if (keycode == 125 || keycode == 126)
-		((t_env *)param)->y_move += (keycode == 126 ? -10 : 10);
+		env->y_move += (keycode == 126 ? 10 : -10);
 	if (keycode == 116 || keycode == 121)
-		((t_env *)param)->z_scale += (keycode == 121 ? -1 : 1);
+		env->z_scale += (keycode == 121 ? -1 : 1);
+	if (keycode == 18 || keycode == 19)
+		env->projection = (keycode == 18 ? isometric : parallel);
 	ft_printf("key: %d\n", keycode);
-	refresh((t_env *)param, add_to_image);
+	refresh(env, add_to_image);
 	return (1);
 }
 
@@ -190,11 +220,14 @@ int		main(int ac, char **av)
 	env->x_scale = 10;
 	env->y_scale = 10;
 	env->z_scale = 10;
+	env->x_move = IMG_WIDTH / 2;
+	env->y_move = IMG_HEIGHT / 2;
+	env->projection = isometric;
 	ft_printf("%d%d\n", env->x_max, env->y_max);
 	map = get_map(av[1]);
 	check_map(map, &(env->x_max), &(env->y_max));
 	ft_printf("%d%d\n", env->x_max, env->y_max);
-	ft_printf("map\n---\n%s", map);
+	ft_printf("map\n---\n%s---\n", map);
 	env->map = parse(&map, env);
 	ft_printf("%d%d\n", env->x_max, env->y_max);
 	print_map(env->map, env);
