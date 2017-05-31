@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 00:33:02 by nlowe             #+#    #+#             */
-/*   Updated: 2017/05/29 15:11:08 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/05/31 18:32:10 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,24 @@ typedef struct		s_env
 	int				y_max;
 	int				x_scale;
 	int				y_scale;
+	int				z_scale;
 	int				x_move;
 	int				y_move;
 }					t_env;
 
 typedef struct		s_seg
 {
-	double			x_0;
-	double			x_1;
-	double			y_0;
-	double			y_1;
-	double			d_x;
-	double			d_y;
-}					t_sgmt;
+	int				x_0;
+	int				x_1;
+	int				y_0;
+	int				y_1;
+	int				d_x;
+	int				d_y;
+	int				s_x;
+	int				s_y;
+	int				err1;
+	int				err2;
+}					t_seg;
 
 void	print_map(t_coord **map, t_env *env);
 

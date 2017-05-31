@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 18:42:32 by nlowe             #+#    #+#             */
-/*   Updated: 2017/05/29 17:32:17 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/05/31 16:34:55 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void		get_coord(t_coord **map, char **str, int *x, int *y)
 		(map[*y][*x]).z = ft_atoi(*str);
 	(map[*y][*x]).x = *x;
 	(map[*y][*x]).y = *y;
-	
 	while (ft_isdigit(**str) || **str == '-')
 		(*str)++;
 	if (**str == ',')
@@ -74,7 +73,7 @@ void		get_coord(t_coord **map, char **str, int *x, int *y)
 		get_color(map, str, x, y);
 	}
 	else
-		(map[*x][*y].color = 0xffffff);
+		map[*y][*x].color = 0xffffff;
 	(*x)++;
 }
 
@@ -106,7 +105,7 @@ char		*get_map(char *filename)
 	char	*trash;
 	char	*buff;
 
-	if ((fd = open(filename, O_RDONLY)) < 0)
+	if ((fd = open(filename, O_RDWR)) <= 0)
 		fdf_error(0);
 	if (!(buff = ft_strnew(0)))
 		fdf_error(0);
