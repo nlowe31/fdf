@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 20:53:14 by nlowe             #+#    #+#             */
-/*   Updated: 2017/05/31 23:07:54 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/06/02 19:53:57 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,12 @@ void	add_to_image(t_env *env, int x, int y)
 	{
 		seg = (env->projection)(env, x, y, 0);
 		put_segment(env, seg, 0xffffff);
+		
 	}
 	if (y + 1 < env->y_max)
 	{
 		seg = (env->projection)(env, x, y, 1);
-		put_segment(env, seg, 0xffffff);
+		put_segment(env, seg, 0xffffff);	
 	}
 }
 
@@ -207,6 +208,17 @@ void	fdf(t_env *env)
 	mlx_loop(env->core);
 }
 
+int		check_filename(char *filename)
+{
+	char	*extension;
+	
+	if (!(extension = ft_strrchr(filename, '.')))
+		return (0);
+	if (ft_strcmp(extension, ".fdf") == 0)
+		return (1);
+	return (0);
+}
+
 int		main(int ac, char **av)
 {
 	t_env	*env;
@@ -214,22 +226,27 @@ int		main(int ac, char **av)
 
 	if (ac != 2)
 		fdf_error("invalid argument");
+	if (!(check_filename(av[1])))
+		fdf_error("invalid file type");
 	if (!(env = (t_env *)malloc(sizeof(t_env))))
 		fdf_error(0);
-	ft_int_init(4, &(env->x_max), &(env->y_max), &(env->x_move), &(env->y_move));
-	env->x_scale = 10;
-	env->y_scale = 10;
-	env->z_scale = 10;
-	env->x_move = IMG_WIDTH / 2;
-	env->y_move = IMG_HEIGHT / 2;
+	ft_int_init(6, &(env->x_max), &(env->y_max), &(env->x_move), &(env->y_move), &(env->x_scale), &(env->y_scale));
 	env->projection = isometric;
-	ft_printf("%d%d\n", env->x_max, env->y_max);
+	ft_printf("%d, %d\n", env->x_max, env->y_max);
 	map = get_map(av[1]);
 	check_map(map, &(env->x_max), &(env->y_max));
-	ft_printf("%d%d\n", env->x_max, env->y_max);
+	ft_printf("%d, %d\n", env->x_max, env->y_max);
 	ft_printf("map\n---\n%s---\n", map);
 	env->map = parse(&map, env);
+	ft_printf("%d, %d\n", env->x_max, env->y_max);
+	env->x_scale = 1;
+	env->y_scale = 1;
+	ft_printf("%d, %d\n", env->x_max, env->y_max);
+	ft_printf("x_scale: %d y_scale: %d", env->x_scale, env->y_scale);
+	env->z_scale = 1;
+	env->x_move = (IMG_WIDTH / 2) - (env->x_max / 2);
+	env->y_move = (IMG_HEIGHT / 2) - (env->y_max / 2);
 	ft_printf("%d%d\n", env->x_max, env->y_max);
-	print_map(env->map, env);
+	// print_map(env->map, env);
 	fdf(env);
 }
