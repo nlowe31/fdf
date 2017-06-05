@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 18:42:32 by nlowe             #+#    #+#             */
-/*   Updated: 2017/05/31 16:34:55 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/06/05 15:00:50 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,29 @@ void		check_column(int *x, int *x_max, int *y_max)
 	if (!(*x_max))
 		*x_max = *x;
 	else if (*x != *x_max)
-		fdf_error("invalid map");
+		fdf_error("invalid map: uneven column length");
 	*x = 0;
 	(*y_max)++;
+}
+
+void		check_color(char *str, int *pos)
+{
+	int		digits;
+
+	digits = 0;
+	if (str[*pos] == ',')
+		(*pos)++;
+	if (str[*pos] == '0')
+		(*pos)++;
+	if (str[*pos] == 'x')
+		(*pos)++;
+	while (ft_isdigit_base(str[*pos], 16))
+	{
+		digits++;
+		(*pos)++;
+	}
+	if (digits != 6)
+		fdf_error("invalid map: invalid color specified");
 }
 
 void		check_map(char *str, int *x_max, int *y_max)
@@ -38,9 +58,9 @@ void		check_map(char *str, int *x_max, int *y_max)
 		while (ft_isdigit(str[pos]) || (str[pos] == '-' && ft_isdigit(str[pos + 1])))
 			pos++;
 		if (str[pos] == ',')
-			pos++;
+			check_color(str, &pos);
 		if (!ft_isdigit(str[pos]) && !ft_isspace(str[pos]))
-			fdf_error("invalid map");
+			fdf_error("invalid map: invalid data point");
 		if (str[pos++] == '\n')
 			check_column(&x, x_max, y_max);
 	}
@@ -48,6 +68,7 @@ void		check_map(char *str, int *x_max, int *y_max)
 
 void		get_color(t_coord **map, char **str, int *x, int *y)
 {
+	ft_printf("get color!\n");
 	if (**str == '0')
 		(*str)++;
 	if (**str == 'x')

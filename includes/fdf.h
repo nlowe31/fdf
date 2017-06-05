@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 00:33:02 by nlowe             #+#    #+#             */
-/*   Updated: 2017/05/31 23:00:32 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/06/05 14:43:58 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 # define WIN_WIDTH	1000
 # define IMG_HEIGHT	600
 # define IMG_WIDTH	1000
+
+# define XS			env->x_scale
+# define YS			env->y_scale
+# define ZS			env->z_scale
+# define XM			env->x_move
+# define YM			env->y_move
 
 typedef struct		s_coord
 {
