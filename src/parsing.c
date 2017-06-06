@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 18:42:32 by nlowe             #+#    #+#             */
-/*   Updated: 2017/06/06 14:54:33 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/06/06 17:31:39 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void		get_color(t_coord **map, char **str, int *x, int *y)
 {
-	ft_printf("get color!\n");
 	if (**str == '0')
 		(*str)++;
 	if (**str == 'x')
