@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/05 14:40:12 by nlowe             #+#    #+#             */
-/*   Updated: 2017/06/06 13:43:07 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/06/06 14:59:50 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,24 @@ t_seg	isometric(t_env *env, int x, int y, int direction)
 
 	if (direction == 1)
 	{
-		ret.x_0 = (env->map[y][x].x * XS) - (env->map[y][x].y * YS) + XM;
-		ret.y_0 = (((env->map[y][x].x * XS) + (env->map[y][x].y * YS)) / 2) - (env->map[y][x].z * ZS) + YM;
-		ret.x_1 = (env->map[y + 1][x].x * XS) - (env->map[y + 1][x].y * YS) + XM;
-		ret.y_1 = (((env->map[y + 1][x].x * XS) + (env->map[y + 1][x].y * YS)) / 2) - (env->map[y + 1][x].z * ZS) + YM;
+		ret.x_0 = (env->map[y][x].x * XS) -
+			(env->map[y][x].y * YS) + XM;
+		ret.y_0 = (((env->map[y][x].x * XS) +
+			(env->map[y][x].y * YS)) / 2) - (env->map[y][x].z * ZS) + YM;
+		ret.x_1 = (env->map[y + 1][x].x * XS) -
+			(env->map[y + 1][x].y * YS) + XM;
+		ret.y_1 = (((env->map[y + 1][x].x * XS) + (env->map[y + 1][x].y *
+			YS)) / 2) - (env->map[y + 1][x].z * ZS) + YM;
 	}
 	else
 	{
 		ret.x_0 = (env->map[y][x].x * XS) - (env->map[y][x].y * YS) + XM;
-		ret.y_0 = (((env->map[y][x].x * XS) + (env->map[y][x].y * YS)) / 2) - (env->map[y][x].z * ZS) + YM;
-		ret.x_1 = (env->map[y][x + 1].x * XS) - (env->map[y][x + 1].y * YS) + XM;
-		ret.y_1 = (((env->map[y][x + 1].x * XS) + (env->map[y][x + 1].y * YS)) / 2) - (env->map[y][x + 1].z * ZS) + YM;
+		ret.y_0 = (((env->map[y][x].x * XS) + (env->map[y][x].y * YS)) / 2) -
+			(env->map[y][x].z * ZS) + YM;
+		ret.x_1 = (env->map[y][x + 1].x * XS) -
+			(env->map[y][x + 1].y * YS) + XM;
+		ret.y_1 = (((env->map[y][x + 1].x * XS) + (env->map[y][x + 1].y *
+			YS)) / 2) - (env->map[y][x + 1].z * ZS) + YM;
 	}
 	return (ret);
 }
@@ -104,11 +111,10 @@ void	add_to_image(t_env *env, int x, int y)
 	{
 		seg = (env->projection)(env, x, y, 0);
 		put_segment(env, seg, (env->map[y][x]).color);
-		
 	}
 	if (y + 1 < env->y_max)
 	{
 		seg = (env->projection)(env, x, y, 1);
-		put_segment(env, seg, (env->map[y][x]).color);	
+		put_segment(env, seg, (env->map[y][x]).color);
 	}
 }

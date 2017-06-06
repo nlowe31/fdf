@@ -6,7 +6,7 @@
 #    By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/17 21:11:30 by nlowe             #+#    #+#              #
-#    Updated: 2017/06/06 13:47:14 by nlowe            ###   ########.fr        #
+#    Updated: 2017/06/06 14:55:32 by nlowe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC_NAME = main.c \
 			fdf.c \
 			images.c \
 			parsing.c \
-			travaux.c
+			verification.c \
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)

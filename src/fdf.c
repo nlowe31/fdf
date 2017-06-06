@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 13:42:13 by nlowe             #+#    #+#             */
-/*   Updated: 2017/06/06 14:06:31 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/06/06 14:52:30 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	refresh(t_env *env, void (*f)(t_env *, int, int))
 
 	mlx_destroy_image(env->core, env->img);
 	env->img = mlx_new_image(env->core, IMG_WIDTH, IMG_HEIGHT);
-	env->data = mlx_get_data_addr(env->img, &(env->bpp), &(env->ls), &(env->en));
+	env->data = mlx_get_data_addr(env->img, &(env->bpp),
+		&(env->ls), &(env->en));
 	y = 0;
 	while (y < env->y_max)
 	{
@@ -45,7 +46,7 @@ void	killswitch(t_env *env)
 int		keyhook(int keycode, void *param)
 {
 	t_env	*env;
-	
+
 	env = (t_env *)param;
 	if (keycode == 53)
 		killswitch(env);
@@ -72,7 +73,8 @@ void	fdf(t_env *env)
 	env->core = mlx_init();
 	env->win = mlx_new_window(env->core, WIN_WIDTH, WIN_HEIGHT, "FdF");
 	env->img = mlx_new_image(env->core, IMG_WIDTH, IMG_HEIGHT);
-	env->data = mlx_get_data_addr(env->img, &(env->bpp), &(env->ls), &(env->en));
+	env->data = mlx_get_data_addr(env->img, &(env->bpp),
+		&(env->ls), &(env->en));
 	mlx_hook(env->win, 2, 3, keyhook, env);
 	refresh(env, add_to_image);
 	mlx_loop(env->core);
