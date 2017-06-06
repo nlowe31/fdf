@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 00:33:02 by nlowe             #+#    #+#             */
-/*   Updated: 2017/06/06 17:57:54 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/06/06 18:04:58 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ typedef struct		s_env
 	int				x_move;
 	int				y_move;
 }					t_env;
-
-void				print_map(t_coord **map, t_env *env);
 
 void				fdf(t_env *env);
 
