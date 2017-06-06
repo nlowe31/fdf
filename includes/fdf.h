@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 00:33:02 by nlowe             #+#    #+#             */
-/*   Updated: 2017/06/06 13:46:21 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/06/06 17:57:54 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,5 @@ void				check_map(char *str, int *x_max, int *y_max);
 void				add_to_image(t_env *env, int x, int y);
 t_seg				parallel(t_env *env, int x, int y, int direction);
 t_seg				isometric(t_env *env, int x, int y, int direction);
-
 
 #endif

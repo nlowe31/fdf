@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 22:32:35 by nlowe             #+#    #+#             */
-/*   Updated: 2017/05/29 15:42:03 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/06/06 17:58:52 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void				ft_lstaddby(t_list **alst, t_list *new,
 void				ft_lstaddbystr(t_list **alst, t_list *new,
 	int(*cmp)(const char *, const char *));
 void				ft_int_init(const int count, ...);
-
 
 int					get_next_line(int const fd, char **line);
 
