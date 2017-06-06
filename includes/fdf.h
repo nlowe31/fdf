@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 00:33:02 by nlowe             #+#    #+#             */
-/*   Updated: 2017/06/05 14:43:58 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/06/06 13:46:21 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,18 @@ typedef struct		s_env
 	int				y_move;
 }					t_env;
 
-void	print_map(t_coord **map, t_env *env);
+void				print_map(t_coord **map, t_env *env);
 
-
+void				fdf(t_env *env);
 
 void				fdf_error(char *message);
 char				*get_map(char *filename);
-
 t_coord				**parse(char **str, t_env *env);
 void				check_map(char *str, int *x_max, int *y_max);
 
+void				add_to_image(t_env *env, int x, int y);
+t_seg				parallel(t_env *env, int x, int y, int direction);
+t_seg				isometric(t_env *env, int x, int y, int direction);
 
 
 #endif
