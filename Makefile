@@ -6,7 +6,7 @@
 #    By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/17 21:11:30 by nlowe             #+#    #+#              #
-#    Updated: 2017/06/06 14:55:32 by nlowe            ###   ########.fr        #
+#    Updated: 2017/06/06 15:46:41 by nlowe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,17 +33,17 @@ MLX_PATH = minilibx
 CC = gcc
 CFLAGS = -Werror -Wall -Wextra
 IFLAGS = -I./includes
-LFLAGS = -L. -lft -Lminilibx -lmlx -framework OpenGL -framework AppKit
+LFLAGS = -Llibft -lft -Lminilibx -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)
 
-$(NAME): $(MLX) $(OBJ)
+$(NAME): $(LIBFT) $(MLX) $(OBJ)
 	@echo "[make] fdf: Compiling..."
 	@$(CC) $(CFLAGS) $(LFLAGS) $(IFLAGS) -o $@ $^
 	@echo "\033[92m----------------------\n|    fdf  compiled   |\n|       @nlowe       |\n----------------------\033[0m"
 
-# $(LIBFT):
-# 	@make -C$(LIB_PATH)
+$(LIBFT):
+	@make -C$(LIBFT_PATH)
 
 $(MLX):
 	@make -C$(MLX_PATH)
@@ -55,11 +55,13 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 clean:
 	@rm -rf $(OBJ)
 	@rm -rf $(OBJ_PATH)
-	# @make clean -C$(LIB_PATH)
+	# @make clean -C$(LIBFT_PATH)
+	@make clean -C $(MLX_PATH)
 
 fclean: clean
 	@rm -f $(NAME)
-	# @make fclean -C$(LIB_PATH)
+	@make fclean -C$(LIBFT_PATH)
+	@make clean -C $(MLX_PATH)
 
 re: fclean all
 

@@ -6,7 +6,7 @@
 /*   By: nlowe <nlowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 20:53:14 by nlowe             #+#    #+#             */
-/*   Updated: 2017/06/06 15:14:20 by nlowe            ###   ########.fr       */
+/*   Updated: 2017/06/06 15:17:16 by nlowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int		main(int ac, char **av)
 	t_env	*env;
 	char	*map;
 
+	errno = 0;
 	if (ac != 2)
 		fdf_error("invalid argument");
 	if (!(check_filename(av[1])))
